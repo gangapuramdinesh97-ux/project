@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course Registration Form</title>
+</head>
+<body>
+
+    <h2>Course Registration Form</h2>
+
+    <form id="regForm">
+        <label>Name:</label>
+        <input type="text" id="name" placeholder="Enter your name"
+               required pattern="[A-Za-z ]{3,}">
+        <br><br>
+
+        <label>Email:</label>
+        <input type="email" id="email" placeholder="Enter your email"
+               required>
+        <br><br>
+
+        <label>Mobile Number:</label>
+        <input type="tel" id="mobile" placeholder="10-digit mobile number"
+               required pattern="[6-9][0-9]{9}">
+        <br><br>
+
+        <label>Password:</label>
+        <input type="password" id="password"
+               placeholder="Minimum 8 characters" required minlength="8">
+        <br><br>
+
+        <label>Select Course:</label>
+        <select id="course" required>
+            <option value="">Choose a course</option>
+            <option value="HTML">HTML</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Python">Python</option>
+            <option value="Java">Java</option>
+        </select>
+        <br><br>
+
+        <button type="submit">Register</button>
+        <button type="reset">Reset</button>
+    </form>
+
+    <p id="message"></p>
+
+    <script>
+        const form = document.getElementById("regForm");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let mobile = document.getElementById("mobile").value.trim();
+            let password = document.getElementById("password").value;
+            let course = document.getElementById("course").value;
+            let message = document.getElementById("message");
+
+            if (name.length < 3) {
+                message.textContent =
+                    "Name must contain at least 3 characters.";
+                return;
+            }
+
+            if (!/^[A-Za-z ]+$/.test(name)) {
+                message.textContent =
+                    "Name must contain only letters and spaces.";
+                return;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                message.textContent = "Enter a valid email address.";
+                return;
+            }
+
+            if (!/^[6-9][0-9]{9}$/.test(mobile)) {
+                message.textContent =
+                    "Enter a valid 10-digit Indian mobile number.";
+                return;
+            }
+
+            if (password.length < 8) {
+                message.textContent =
+                    "Password must contain at least 8 characters.";
+                return;
+            }
+
+            if (course === "") {
+                message.textContent = "Please select a course.";
+                return;
+            }
+
+            message.textContent =
+                "Registration successful! Course: " + course;
+        });
+
+        form.addEventListener("reset", function() {
+            document.getElementById("message").textContent = "";
+        });
+    </script>
+
+</body>
+</html>
